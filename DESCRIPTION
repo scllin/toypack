@@ -7,12 +7,12 @@ Maintainer: The package maintainer <yourself@somewhere.net>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 Imports:
-	mvtnorm
-	quantreg
-	TwoSampleMR
+	mvtnorm,
+	quantreg,
+	TwoSampleMR,
 	MVMR
 Remotes:
-	mrcieu/TwoSampleMR
+	mrcieu/TwoSampleMR,
 	WSpiller/MVMR
 
 License: What license is it under?
