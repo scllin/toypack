@@ -74,7 +74,7 @@ M1_IVW <- function(dat_mrMed,gamma=0.05){
 	names(dat_XY) <- gsub("X","exposure",names(dat_XY))
 	names(dat_XY) <- gsub("Y","outcome",names(dat_XY))
 	mr_keep <- rep(TRUE,dim(dat_XY)[1])
-	res_3 <-mr(cbind(dat_XY,mr_keep),method_list=c("mr_ivw"))
+	res_3 <-TwoSampleMR::mr(cbind(dat_XY,mr_keep),method_list=c("mr_ivw"))
 
 	indx_mvmr <- !(is.na(dat_mrMed$beta.X)|is.na(dat_mrMed$beta.M)|is.na(dat_mrMed$beta.Y)|dat_mrMed$G_mvmr==0)
 	res <- summary(lm(dat_mrMed$beta.Y[indx_mvmr]~0+dat_mrMed$beta.X[indx_mvmr]+dat_mrMed$beta.M[indx_mvmr],weights=1/dat_mrMed$se.Y[indx_mvmr]^2))
