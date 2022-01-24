@@ -175,11 +175,11 @@ M1_Median <- function(dat_mrMed,gamma=0.05,Nboot=1000){
 
 			b_iv <-dat_mrMed_i$beta.Y[indx_Gxy]/dat_mrMed_i$beta.X[indx_Gxy]
 			VBj <- (dat_mrMed_i$se.Y[indx_Gxy]^2)/(dat_mrMed_i$beta.X[indx_Gxy]^2) + (dat_mrMed_i$beta.Y[indx_Gxy]^2)*(dat_mrMed_i$se.X[indx_Gxy]^2)/(dat_mrMed_i$beta.X[indx_Gxy]^4)
-			tau_mvmr  <- weighted_median(b_iv, 1 / VBj)
+			tau_mvmr  <- TwoSampleMR::weighted_median(b_iv, 1 / VBj)
 			#tau_mvmr <- mr(cbind(dat_XY_i,mr_keep),method_list=c("mr_weighted_median"))$b
 			#tau_mvmr <- rq(gwasY_i[indx_Gx]~0+gwasX_i[indx_Gx],weights=1/gwasY_rmna$se.outcome[indx_Gx]^2)$coefficients[[1]]
 
-			delta_mvmr <- rq(dat_mrMed_i$beta.Y[indx_mvmr]~0+dat_mrMed_i$beta.X[indx_mvmr]+dat_mrMed_i$beta.M[indx_mvmr],weights=1/dat_mrMed_i$se.Y[indx_mvmr]^2)$coefficients[[1]]
+			delta_mvmr <- quantreg::rq(dat_mrMed_i$beta.Y[indx_mvmr]~0+dat_mrMed_i$beta.X[indx_mvmr]+dat_mrMed_i$beta.M[indx_mvmr],weights=1/dat_mrMed_i$se.Y[indx_mvmr]^2)$coefficients[[1]]
 
 			res_boot[i,1] <- tau_mvmr-delta_mvmr
 			res_boot[i,2] <- delta_mvmr
