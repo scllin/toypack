@@ -35,7 +35,7 @@ Mtd1 <- function(u_delta,se_delta,u_tau,se_tau,cov_deltatau,dat_mrMed,gamma=0.05
 }
 
 
-M1_IVW <- function(dat_mrMed,gamma=0.05){
+M1_IVW_0 <- function(dat_mrMed,gamma=0.05){
 
 
 	dat_mrMed <- form_dat(dat_mrMed)
@@ -60,7 +60,7 @@ M1_IVW <- function(dat_mrMed,gamma=0.05){
 	return(Mtd1(b_X,se_X,res_3$b,res_3$se,cov_deltatau[1],dat_mrMed,gamma))
 }
 
-M1_IVWa <- function(dat_mrMed,gamma=0.05){
+M1_IVW <- function(dat_mrMed,gamma=0.05){
 
 
 	dat_mrMed <- form_dat(dat_mrMed)
@@ -168,9 +168,9 @@ M1_Median <- function(dat_mrMed,gamma=0.05,Nboot=1000){
 			indx_X <- !is.na(dat_mrMed_i$beta.X)
 			indx_M <- !is.na(dat_mrMed_i$beta.M)
 			indx_Y <- !is.na(dat_mrMed_i$beta.Y)
-			dat_mrMed_i$beta.X[indx_X] <- as.vector(rmvnorm(1,dat_mrMed$beta.X[indx_X],diag(dat_mrMed$se.X[indx_X]^2)))
-			dat_mrMed_i$beta.M[indx_M] <- as.vector(rmvnorm(1,dat_mrMed$beta.M[indx_M],diag(dat_mrMed$se.M[indx_M]^2)))
-			dat_mrMed_i$beta.Y[indx_Y] <- as.vector(rmvnorm(1,dat_mrMed$beta.Y[indx_Y],diag(dat_mrMed$se.Y[indx_Y]^2)))
+			dat_mrMed_i$beta.X[indx_X] <- as.vector(mvtnorm::rmvnorm(1,dat_mrMed$beta.X[indx_X],diag(dat_mrMed$se.X[indx_X]^2)))
+			dat_mrMed_i$beta.M[indx_M] <- as.vector(mvtnorm::rmvnorm(1,dat_mrMed$beta.M[indx_M],diag(dat_mrMed$se.M[indx_M]^2)))
+			dat_mrMed_i$beta.Y[indx_Y] <- as.vector(mvtnorm::rmvnorm(1,dat_mrMed$beta.Y[indx_Y],diag(dat_mrMed$se.Y[indx_Y]^2)))
 
 
 			b_iv <-dat_mrMed_i$beta.Y[indx_Gxy]/dat_mrMed_i$beta.X[indx_Gxy]
