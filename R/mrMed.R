@@ -215,7 +215,7 @@ Mtd2 <- function(b_alpha,se_alpha,b_beta,se_beta,b_tau,se_tau,gamma=0.05){
 	se_DE <- sqrt(se_tau^2 + se_IE^2)
 	
 	#rho
-	rho <- b_IE/b_tau
+	b_rho <- b_IE/b_tau
 	se_rho <- sqrt(se_IE^2/b_tau^2 + b_IE^2*se_tau^2/b_tau^4)	
 
 	return(list(
