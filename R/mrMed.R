@@ -3,7 +3,7 @@ mrMed <- function(dat_mrMed, method_list=c("M1_IVW","M2_IVW","M2_Median")){
 
 	dat_mrMed <- form_dat(dat_mrMed)
 	
-	res <- lapply(method_list, function(meth){get(meth)(dat_sim)})
+	res <- lapply(method_list, function(meth){get(meth)(dat_mrMed)})
 
 	res_tab <- list(
 		TE = cbind(method_list,t(sapply(res, function(x) x$TE))),
