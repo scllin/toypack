@@ -1,7 +1,7 @@
 
 mrMed <- function(dat_mrMed, method_list=c("M1_IVW","M2_IVW","M2_Median")){
 
-	dat_mrMed <- form_dat(dat_mrMed)
+	#dat_mrMed <- form_dat(dat_mrMed)
 	
 	res <- lapply(method_list, function(meth){get(meth)(dat_mrMed)})
 
@@ -41,7 +41,7 @@ Mtd1 <- function(b_TE,se_TE,b_DE,se_DE,cov_TEDE=0,dat_mrMed,gamma=0.05){
 M1_IVW_0 <- function(dat_mrMed,gamma=0.05){
 
 
-	#dat_mrMed <- form_dat(dat_mrMed)
+	dat_mrMed <- form_dat(dat_mrMed)
 
 	#TE using Gx as IVs based on mr_ivw in TwoSampleMR::mr 
 	indx_Gxy <- !(dat_mrMed$Gx==0|is.na(dat_mrMed$beta.X)|is.na(dat_mrMed$beta.Y))
@@ -66,7 +66,7 @@ M1_IVW_0 <- function(dat_mrMed,gamma=0.05){
 M1_IVW <- function(dat_mrMed,gamma=0.05){
 
 
-	#dat_mrMed <- form_dat(dat_mrMed)
+	dat_mrMed <- form_dat(dat_mrMed)
 
 	#TE using Gx_plum as IVs based on mr_ivw in TwoSampleMR::mr 
 	indx_Gxy <- !(dat_mrMed$Gx_plum==0|is.na(dat_mrMed$beta.X)|is.na(dat_mrMed$beta.Y))
@@ -101,7 +101,7 @@ M1_IVW <- function(dat_mrMed,gamma=0.05){
 
 M1_Egger <- function(dat_mrMed,gamma=0.05){
 
-	#dat_mrMed <- form_dat(dat_mrMed)
+	dat_mrMed <- form_dat(dat_mrMed)
 
 	#orient direction based on beta of exposure
 	dat_mrMed$beta.Y <- sign(dat_mrMed$beta.X)*dat_mrMed$beta.Y
@@ -142,7 +142,7 @@ M1_Egger <- function(dat_mrMed,gamma=0.05){
 
 M1_Median <- function(dat_mrMed,gamma=0.05,Nboot=1000){
 
-	#dat_mrMed <- form_dat(dat_mrMed)
+	dat_mrMed <- form_dat(dat_mrMed)
 
 	#critical value
 	z=qnorm(1-gamma/2)
@@ -246,7 +246,7 @@ Mtd2 <- function(b_alpha,se_alpha,b_beta,se_beta,b_tau,se_tau,gamma=0.05){
 
 M2_IVW <- function(dat_mrMed,gamma=0.05){
 
-	#dat_mrMed <- form_dat(dat_mrMed)
+	dat_mrMed <- form_dat(dat_mrMed)
  
 	indx_Gxm <- !(dat_mrMed$Gx_plum==0|is.na(dat_mrMed$beta.X)|is.na(dat_mrMed$beta.M))
 	indx_Gmy <- !(dat_mrMed$Gm_plum==0|is.na(dat_mrMed$beta.M)|is.na(dat_mrMed$beta.Y))
@@ -285,7 +285,7 @@ M2_IVW <- function(dat_mrMed,gamma=0.05){
 
 M2_Egger <- function(dat_mrMed,gamma=0.05){
 
-	#dat_mrMed <- form_dat(dat_mrMed)
+	dat_mrMed <- form_dat(dat_mrMed)
 
 	indx_Gxm <- !(dat_mrMed$Gx_plum==0|is.na(dat_mrMed$beta.X)|is.na(dat_mrMed$beta.M))
 	indx_Gmy <- !(dat_mrMed$Gm_plum==0|is.na(dat_mrMed$beta.M)|is.na(dat_mrMed$beta.Y))
@@ -325,7 +325,7 @@ M2_Egger <- function(dat_mrMed,gamma=0.05){
 
 M2_Median <- function(dat_mrMed,gamma=0.05){
 
-	#dat_mrMed <- form_dat(dat_mrMed)
+	dat_mrMed <- form_dat(dat_mrMed)
 
 	indx_Gxm <- !(dat_mrMed$Gx_plum==0|is.na(dat_mrMed$beta.X)|is.na(dat_mrMed$beta.M))
 	indx_Gmy <- !(dat_mrMed$Gm_plum==0|is.na(dat_mrMed$beta.M)|is.na(dat_mrMed$beta.Y))
