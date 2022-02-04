@@ -6,12 +6,14 @@ mrMed <- function(dat_mrMed, method_list=c("M1_IVW","M2_IVW","M2_Median")){
 	res <- lapply(method_list, function(meth){get(meth)(dat_mrMed)})
 
 	res_tab <- list(
-		TE = cbind(method_list,t(sapply(res, function(x) x$TE))),
-		DE = cbind(method_list,t(sapply(res, function(x) x$DE))),
-		IE = cbind(method_list,t(sapply(res, function(x) x$IE))),
-		rho = cbind(method_list,t(sapply(res, function(x) x$rho)))
+	TE = cbind(method_list,plyr::rbind.fill(lapply(res, function(x) x$TE))),
+	DE = cbind(method_list,plyr::rbind.fill(lapply(res, function(x) x$DE))),
+	IE = cbind(method_list,plyr::rbind.fill(lapply(res, function(x) x$IE))),
+	rho = cbind(method_list,plyr::rbind.fill(lapply(res, function(x) x$rho)))
 	)
-	
+
+	res_tab <- lapply(res_tab, function(x){colnames(x)=c("methods","b","se","pval","CI_lower","CI_upper");return(x)})
+
 	return(res_tab)
 }
 
