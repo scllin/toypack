@@ -40,7 +40,7 @@ Mtd1 <- function(b_TE,se_TE,b_DE,se_DE,cov_TEDE=0,dat_mrMed,gamma=0.05){
 }
 
 
-M1_IVW_0 <- function(dat_mrMed,gamma=0.05){
+Diff_IVW_0 <- function(dat_mrMed,gamma=0.05){
 
 
 	dat_mrMed <- form_dat(dat_mrMed)
@@ -65,7 +65,7 @@ M1_IVW_0 <- function(dat_mrMed,gamma=0.05){
 	return(Mtd1(res_3$b,res_3$se,b_DE,se_DE,cov_TEDE,dat_mrMed,gamma))
 }
 
-M1_IVW <- function(dat_mrMed,gamma=0.05){
+Diff_IVW <- function(dat_mrMed,gamma=0.05){
 
 
 	dat_mrMed <- form_dat(dat_mrMed)
@@ -101,7 +101,7 @@ M1_IVW <- function(dat_mrMed,gamma=0.05){
 	return(Mtd1(res_3$b,res_3$se,b_X,se_X,cov_TEDE[1],dat_mrMed,gamma))
 }
 
-M1_Egger <- function(dat_mrMed,gamma=0.05){
+Diff_Egger <- function(dat_mrMed,gamma=0.05){
 
 	dat_mrMed <- form_dat(dat_mrMed)
 
@@ -142,7 +142,7 @@ M1_Egger <- function(dat_mrMed,gamma=0.05){
 }
 
 
-M1_Median <- function(dat_mrMed,gamma=0.05,Nboot=1000){
+Diff_Median <- function(dat_mrMed,gamma=0.05,Nboot=1000){
 
 	dat_mrMed <- form_dat(dat_mrMed)
 
@@ -248,7 +248,7 @@ Mtd2 <- function(b_alpha,se_alpha,b_beta,se_beta,b_tau,se_tau,gamma=0.05){
 
 
 
-M2_IVW_0 <- function(dat_mrMed,gamma=0.05){
+Prod_IVW_0 <- function(dat_mrMed,gamma=0.05){
 
 	dat_mrMed <- form_dat(dat_mrMed)
 
@@ -284,7 +284,7 @@ M2_IVW_0 <- function(dat_mrMed,gamma=0.05){
 
 
 
-M2_IVW <- function(dat_mrMed,gamma=0.05){
+Prod_IVW <- function(dat_mrMed,gamma=0.05){
 
 	dat_mrMed <- form_dat(dat_mrMed)
  
@@ -323,7 +323,7 @@ M2_IVW <- function(dat_mrMed,gamma=0.05){
 	return(Mtd2(res_1$b,res_1$se,res_2$b,res_2$se,res_3$b,res_3$se,gamma=0.05))
 } 
 
-M2_Egger <- function(dat_mrMed,gamma=0.05){
+Prod_Egger <- function(dat_mrMed,gamma=0.05){
 
 	dat_mrMed <- form_dat(dat_mrMed)
 
@@ -363,7 +363,7 @@ M2_Egger <- function(dat_mrMed,gamma=0.05){
 } 
 
 
-M2_Median <- function(dat_mrMed,gamma=0.05){
+Prod_Median <- function(dat_mrMed,gamma=0.05){
 
 	dat_mrMed <- form_dat(dat_mrMed)
 
