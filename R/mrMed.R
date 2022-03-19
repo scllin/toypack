@@ -1,5 +1,5 @@
 
-mrMed <- function(dat_mrMed, method_list=c("M1_IVW","M2_IVW","M2_Median")){
+mrMed <- function(dat_mrMed, method_list=c("Diff_IVW","Prod_IVW","Prod_Median")){
 
 	#dat_mrMed <- form_dat(dat_mrMed)
 	
@@ -96,7 +96,7 @@ Diff_IVW <- function(dat_mrMed,gamma=0.05){
 	sigma_mvmr <- res$sigma
 
 	cov_TEDE <- solve(t(Gamma_mvmr)%*%W%*%Gamma_mvmr)%*%t(Gamma_mvmr)%*%W%*%Gamma_mr/sum(t(Gamma_mr)%*%W%*%Gamma_mr)
-	cov_TEDE <- cov_TEDE*max(1,min(sigma_uvmr,sigma_mvmr))^2
+	cov_TEDE <- cov_TEDE*max(1,min(sigma_uvmr^2,sigma_mvmr^2))
 
 	return(Mtd1(res_3$b,res_3$se,b_X,se_X,cov_TEDE[1],dat_mrMed,gamma))
 }
@@ -136,7 +136,7 @@ Diff_Egger <- function(dat_mrMed,gamma=0.05){
 	sigma_mvmr <- res$sigma	
 
 	cov_TEDE <- solve(t(Gamma_mvmr)%*%W%*%Gamma_mvmr)%*%t(Gamma_mvmr)%*%W%*%Gamma_mr%*%solve(t(Gamma_mr)%*%W%*%Gamma_mr)
-	cov_TEDE <- cov_TEDE*max(1,min(sigma_uvmr,sigma_mvmr))^2
+	cov_TEDE <- cov_TEDE*max(1,min(sigma_uvmr^2,sigma_mvmr^2))
 
 	return(Mtd1(res_3$b,res_3$se,b_X,se_X,cov_TEDE[2,2],dat_mrMed,gamma))
 }
@@ -252,15 +252,6 @@ Prod_IVW_0 <- function(dat_mrMed,gamma=0.05){
 
 	dat_mrMed <- form_dat(dat_mrMed)
 
-	#estimate alpha based on mr_weighted_median in TwoSampleMR::mr 
-	indx_Gxm <- !(dat_mrMed$Gx_plum==0|is.na(dat_mrMed$beta.X)|is.na(dat_mrMed$beta.M))
-	dat_XM <- dat_mrMed[indx_Gxm,c("SNP","X","id.X","effect_allele.X","other_allele.X","eaf.X","beta.X","se.X","pval.X",
-	"M","id.M","effect_allele.M","other_allele.M","eaf.M","beta.M","se.M","pval.M")]
-	names(dat_XM) <- gsub("X","exposure",names(dat_XM))
-	names(dat_XM) <- gsub("M","outcome",names(dat_XM))
-	mr_keep <- rep(TRUE,dim(dat_XM)[1])
-	res_1 <- TwoSampleMR::mr(cbind(dat_XM,mr_keep),method_list=c("mr_ivw"))
-
 	#TE using Gx as IVs based on mr_ivw in TwoSampleMR::mr 
 	indx_Gxy <- !(dat_mrMed$Gx==0|is.na(dat_mrMed$beta.X)|is.na(dat_mrMed$beta.Y))
 	dat_XY <- dat_mrMed[indx_Gxy,c("SNP","X","id.X","effect_allele.X","other_allele.X","eaf.X","beta.X","se.X","pval.X",
@@ -270,11 +261,21 @@ Prod_IVW_0 <- function(dat_mrMed,gamma=0.05){
 	mr_keep <- rep(TRUE,dim(dat_XY)[1])
 	res_3 <- TwoSampleMR::mr(cbind(dat_XY,mr_keep),method_list=c("mr_ivw"))
 	
-	#mediator-outcome effect 
+	
+	#exposure-mediator(alpha) using Gx as IVs based on mr_ivw in TwoSampleMR::mr 
+	indx_Gxm <- !(dat_mrMed$Gx==0|is.na(dat_mrMed$beta.X)|is.na(dat_mrMed$beta.M))
+	dat_XM <- dat_mrMed[indx_Gxm,c("SNP","X","id.X","effect_allele.X","other_allele.X","eaf.X","beta.X","se.X","pval.X",
+	"M","id.M","effect_allele.M","other_allele.M","eaf.M","beta.M","se.M","pval.M")]
+	names(dat_XM) <- gsub("X","exposure",names(dat_XM))
+	names(dat_XM) <- gsub("M","outcome",names(dat_XM))
+	mr_keep <- rep(TRUE,dim(dat_XM)[1])
+	res_1 <- TwoSampleMR::mr(cbind(dat_XM,mr_keep),method_list=c("mr_ivw"))
+
+	#mediator-outcome effect (beta) using MVMR
 	indx_mvmr <- !(is.na(dat_mrMed$beta.X)|is.na(dat_mrMed$beta.M)|is.na(dat_mrMed$beta.Y)|dat_mrMed$G_mvmr==0)
 	res <- summary(lm(dat_mrMed$beta.Y[indx_mvmr]~0+dat_mrMed$beta.X[indx_mvmr]+dat_mrMed$beta.M[indx_mvmr],weights=1/dat_mrMed$se.Y[indx_mvmr]^2))
-	b_DE <- res$coefficients[1,1]
-	se_DE <- res$coefficients[1,2]/min(1,res$sigma)
+	#b_DE <- res$coefficients[1,1]
+	#se_DE <- res$coefficients[1,2]/min(1,res$sigma)
 
 	return(Mtd2(res_1$b,res_1$se,res$coefficients[2,1],res$coefficients[2,2],res_3$b,res_3$se))
 }
