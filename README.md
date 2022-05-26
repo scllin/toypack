@@ -1,7 +1,7 @@
 # mrMed
-mrMed (**MR-based mediation analysis**) provide the function to perform causal medaiton analysis using summary satistics from genome-wide association studies (GWAS) based on Mendelian Randomization (MR).
+mrMed (**MR-based mediation analysis**) is a function to perform causal medaiton analysis using summary satistics from genome-wide association studies (GWAS) based on Mendelian Randomization (MR).
 
-mrMed provides three default methods to perform the MR-based mediation analysis and provide estimates of total effect (TE), direct effect (DE), indirect effect (IE), and mediation proportion (rho):
+mrMed provides three default methods to perform the MR-based mediation analysis and estimates of total effect (TE), direct effect (DE), indirect effect (IE), and mediation proportion (rho):
 1. Diff_IVW
 2. Prod_IVW
 3. Prod_Median
