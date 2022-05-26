@@ -22,10 +22,10 @@
 % \details{}
 
 \value{
-    \item{TE}{Results for the total effect including point estimate (b), standard error of the estimate (se), p-value (pval), and the upper bound and lower bound of 95% confidence interval.}
-    \item{DE}{Results for the direct effect including point estimate (b), standard error of the estimate (se), p-value (pval), and the upper bound and lower bound of 95% confidence interval.}
-    \item{IE}{Results for the indirect effect including point estimate (b), standard error of the estimate (se), p-value (pval), and the upper bound and lower bound of 95% confidence interval.}
-    \item{rho}{Results for the mediation proportion including point estimate (b), standard error of the estimate (se), p-value (pval), and the upper bound and lower bound of 95% confidence interval.}
+    \item{TE}{Results for the total effect including point estimate (b), standard error of the estimate (se), p-value (pval), and the upper bound and lower bound of 95\% confidence interval.}
+    \item{DE}{Results for the direct effect including point estimate (b), standard error of the estimate (se), p-value (pval), and the upper bound and lower bound of 95\% confidence interval.}
+    \item{IE}{Results for the indirect effect including point estimate (b), standard error of the estimate (se), p-value (pval), and the upper bound and lower bound of 95\% confidence interval.}
+    \item{rho}{Results for the mediation proportion including point estimate (b), standard error of the estimate (se), p-value (pval), and the upper bound and lower bound of 95\% confidence interval.}
 }
 \references{
     Casual mediation analysis: a summary-data Mendelian randomization approach 
