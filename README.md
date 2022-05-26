@@ -1,34 +1,33 @@
-# MR-PRESSO
-MR-PRESSO (**Mendelian Randomization Pleiotropy RESidual Sum and Outlier**) is a method that allows for the evaluation of horizontal pleiotropy in multi-instrument Mendelian Randomization utilizing genome-wide summary association statistics.
+# mrMed
+mrMed (**MR-based mediation analysis**) is a method that performs causal medaiton analysis based on summary-data Mendelian Randomization (MR).
 
-MR-PRESSO has three components, including:
-1. detection of horizontal pleiotropy (*MR-PRESSO global test*)
-2. correction of horizontal pleiotropy via outlier removal (*MR-PRESSO outlier test*)
-3. testing of significant distortion in the causal estimates before and after outlier removal (*MR-PRESSO distortion test*).
+mrMed provides three main functions to perform MR-based mediation analysis and provide estimates of total effect (TE), direct effect (DE), indirect effect (IE), mediation proportion (rho):
+1. Diff_IVW
+2. Prod_IVW
+3. Prod_Median
 
 ### Reference
+Causal mediation analysis: a MR approach
+<https://...>
 
-Detection of widespread horizontal pleiotropy in causal relationships inferred from Mendelian randomization between complex traits and diseases. Marie Verbanck, Chia-Yen Chen, Benjamin Neale, Ron Do. Nature Genetics 2018. DOI: 10.1038/s41588-018-0099-7.
-<https://www.nature.com/articles/s41588-018-0099-7>
-
-### 1. Install and load MR-PRESSO
-To install the latest development builds directly from GitHub, run this instead:
+### 1. Install and load mrMed
+To install and load the latest version from GitHub, run the following lines:
 ```r
 if (!require("devtools")) { install.packages("devtools") } else {}
-devtools::install_github("rondolab/MR-PRESSO")
+devtools::install_github("scllin/mrMed")
 ```
-Load MR-PRESSO 
+Load mrMed 
 ```r
-library(MRPRESSO)
+library(mrMed)
 ```
 
 ### 2. Example
 ```r
-# Load a simulated toy dataset
-data(SummaryStats)
+# Load the dataset with exposure:WHR, mediator:T2D, and outcome:CAD
+data(WHR_T2D_CAD)
 
-# Run MR-PRESSO global method
-mr_presso(BetaOutcome = "Y_effect", BetaExposure = "E1_effect", SdOutcome = "Y_se", SdExposure = "E1_se", OUTLIERtest = TRUE, DISTORTIONtest = TRUE, data = SummaryStats, NbDistribution = 1000,  SignifThreshold = 0.05)
+# Run mrMed with the default three methods Diff_IVW, Prod_IVW, Prod_Median
+mr_presso(WHR_T2D_CAD)
 
 # Run MR-PRESSO on a multi-variable MR (MMR) model specifying several exposures
 mr_presso(BetaOutcome = "Y_effect", BetaExposure = c("E1_effect", "E2_effect"), SdOutcome = "Y_se", SdExposure = c("E1_se", "E2_se"), OUTLIERtest = TRUE, DISTORTIONtest = TRUE, data = SummaryStats, NbDistribution = 1000,  SignifThreshold = 0.05)
