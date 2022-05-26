@@ -1,13 +1,13 @@
 # mrMed
-mrMed (**MR-based mediation analysis**) is a method that performs causal medaiton analysis based on Genome-wide summary statistics using Mendelian Randomization (MR).
+mrMed (**MR-based mediation analysis**) provide the function to perform causal medaiton analysis using summary satistics from genome-wide association studies (GWAS) based on Mendelian Randomization (MR).
 
-mrMed provides three main functions to perform MR-based mediation analysis and provide estimates of total effect (TE), direct effect (DE), indirect effect (IE), and mediation proportion (rho):
+mrMed provides three default methods to perform the MR-based mediation analysis and provide estimates of total effect (TE), direct effect (DE), indirect effect (IE), and mediation proportion (rho):
 1. Diff_IVW
 2. Prod_IVW
 3. Prod_Median
 
 ### Reference
-Causal mediation analysis: a MR approach
+Causal Mediation Analysis: A Summary-Data Mendelian Randomization Approach
 <https://...>
 
 ### 1. Install and load mrMed
@@ -16,12 +16,12 @@ To install and load the latest version from GitHub, run the following lines:
 if (!require("devtools")) { install.packages("devtools") } else {}
 devtools::install_github("scllin/mrMed")
 ```
-Load mrMed 
+
 ```r
 library(mrMed)
 ```
 
-### 2. Example
+### 2. Examples
 ```r
 # Load the dataset with exposure:WHR, mediator:T2D, and outcome:CAD
 data(WHR_T2D_CAD)
@@ -32,6 +32,6 @@ mrMed(WHR_T2D_CAD)
 # Run mrMed with the the other methods
 mrMed(WHR_T2D_CAD, method_list=c("Diff_IVW_0","Prod_IVW_0"))
 
-# Run Diff-Median method (may require certain run time due to the bootstrap procedure)
+# Run Diff-Median method (require certain run time due to the bootstrap procedure)
 mrMed(WHR_T2D_CAD, method_list=c("Diff_Median"))
 ```

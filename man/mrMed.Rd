@@ -1,17 +1,17 @@
 \name{mrMed}
 \alias{mrMed}
 \title{
-    a function to perform the MR-based mediation analysis using summary-level statistics
+    a function to perform the MR-based mediation analysis using summary statistics from genome-wide association studies (GWAS)
 }
 \description{
-    mrMed provide a framework to perform causal mediation analysis based on MR-based mediation methods and provide estimates of the total effect (TE), direct effect (DE), indirect effect (IE), and mediation proportion (rho).
+    mrMed includes several methods to perform MR-based mediation analysis and provides corresponding estimates of the total effect (TE), direct effect (DE), indirect effect (IE), and mediation proportion (rho).
 }
 \usage{
     mrMed(dat_mrMed, method_list=c("Diff_IVW","Prod_IVW","Prod_Median"))
 }
 \arguments{
   \item{dat_mrMed}{
-    dataframe, required data format are refered to the examples
+    dataframe, the required format are refered to the examples
 }
   \item{method_list}{
     vector of characters, name(s) of the MR-based mediation methods
@@ -28,7 +28,7 @@
     \item{rho}{Results for the mediation proportion including point estimate (b), standard error of the estimate (se), p-value (pval), and the upper bound and lower bound of 95\% confidence interval.}
 }
 \references{
-    Casual mediation analysis: a summary-data Mendelian randomization approach 
+    Causal Mediation Analysis: A Summary-Data Mendelian Randomization Approach
 }
 \author{
     Shu-Chin Lin
