@@ -1,5 +1,5 @@
 # mrMed
-mrMed (**MR-based mediation analysis**) is a method that performs causal medaiton analysis based on summary-data Mendelian Randomization (MR).
+mrMed (**MR-based mediation analysis**) is a method that performs causal medaiton analysis based on Genome-wide summary statistics using Mendelian Randomization (MR).
 
 mrMed provides three main functions to perform MR-based mediation analysis and provide estimates of total effect (TE), direct effect (DE), indirect effect (IE), mediation proportion (rho):
 1. Diff_IVW
@@ -26,9 +26,12 @@ library(mrMed)
 # Load the dataset with exposure:WHR, mediator:T2D, and outcome:CAD
 data(WHR_T2D_CAD)
 
-# Run mrMed with the default three methods Diff_IVW, Prod_IVW, Prod_Median
-mr_presso(WHR_T2D_CAD)
+# Run mrMed with the default methods: Diff_IVW, Prod_IVW, Prod_Median
+mrMed(WHR_T2D_CAD)
 
-# Run MR-PRESSO on a multi-variable MR (MMR) model specifying several exposures
-mr_presso(BetaOutcome = "Y_effect", BetaExposure = c("E1_effect", "E2_effect"), SdOutcome = "Y_se", SdExposure = c("E1_se", "E2_se"), OUTLIERtest = TRUE, DISTORTIONtest = TRUE, data = SummaryStats, NbDistribution = 1000,  SignifThreshold = 0.05)
+# Run mrMed with the the existing methods
+mrMed(WHR_T2D_CAD, method_list=c("Diff_IVW_0","Prod_IVW_0"))
+
+# Run Diff-Median method (may require certain run time due to the bootstrap procedure)
+mrMed(WHR_T2D_CAD, method_list=c("Diff_Median"))
 ```
